@@ -10,6 +10,27 @@
 /*body styles*/
 body {
   background-color: lightgrey;
+  display: flex;
+}
+
+.left-panel {
+  align-items: center;
+  background-color: #F7F7F7;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-panel {
+  align-items: center;
+  /*maybe use align-content instead*/
+  background-color: #404041;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+/*need to set a height   try height: 100vh;*/
 }
 
 .title {
