@@ -1,0 +1,73 @@
+/*broad styles*/
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+}
+
+/*body styles*/
+body {
+  background-color: lightgrey;
+}
+
+.title {
+  color: #DD1972;
+}
+
+.light-title {
+  font-weight: 300;
+}
+
+.guess-number {
+  color: #F74D9B;
+}
+
+.guessed-title,
+.guess-result {
+  font-weight: 300;
+  color: #FFFFFF;
+}
+
+.current-range {
+  font-weight: 300;
+  color: #404041;
+}
+
+.underline-range {
+  text-decoration: underline;
+}
+
+label {
+  color: #404041;
+}
+
+/*default and for active state - can't get active to work right now*/
+.button {
+  color: white;
+  background-color: #6E6E6E;
+  border-radius: 24px;
+  padding: 10px;
+  width: 200px;
+}
+
+/*for hover - have it stay pink after click?*/
+.button:hover {
+  background-color: #DD1972;
+}
+
+.button:disabled {
+  background-color: #D0D2D3;
+}
+
+.input-box,
+.lg-input-box {
+  border: solid 1px #404041;
+}
+
+
+
+
+
+
