@@ -73,6 +73,11 @@ label {
   border: solid 1px #404041;
 }
 
+/*for disabled state*/
+.disable-clear {
+  background-color: orange;
+}
+
 /*flex styling*/
 .left-panel {
   align-items: center;
