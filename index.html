@@ -1,38 +1,52 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Number Guesser</title>
-    <script type="text/javascript" src="scripts.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-  </head>
-  <body>
+<head>
+  <title>Number Guesser</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="game-container">
     <article class="left-panel">
-      <h1 class="title">NUMBER<span class="light-title">GUESSER</span></h1>
-      <form class="top-form">
-        <label class="input min-range" for="min-input-box">Min Range</label>
-        <label class="input max-range" for="max-input-box">Max Range</label>
-        <input class="input-box" type="number" id="min-input-box" name="minRange"/>
-        <input class="input-box" type="number" id="max-input-box" name="maxRange"/>
-        <input class="button update-button" type="submit" value="UPDATE"/>
-      </form>
-      <p class="current-range">
-        The Current Range is 
-        <span class="min-range underline-range">1</span> 
-        to 
-        <span class="max-range underline-range">100</span>
-      </p>
-      <form class="bottom-form">
-        <label class="input user-guess" for="user-guess-box">Guess</label>
-        <input class="lg-input-box" type="number" id="user-guess-box" name="userGuess"/>
-        <input class="button submit-guess" type="submit" value="SUBMIT GUESS">
-        <input class="button clear-guess" type="submit" value="CLEAR">
-        <input class="button reset-game" type="submit" value="RESET">
-      </form>
+      <div class="range-container">
+        <h1 class="title">NUMBER<span class="light-title">GUESSER</span></h1>
+        <form class="top-form">
+          <div class="min-column">
+            <label class="input min-range" for="min-input-box">Min Range</label>
+            <input class="input-box min-range-input" type="number" id="min-input-box" name="minRange"/>
+          </div>
+          <div class="max-column">
+            <label class="input max-range" for="max-input-box">Max Range</label>
+            <input class="input-box max-range-input" type="number" id="max-input-box" name="maxRange"/>
+          </div>
+          <div class="update-column">
+            <input class="button update-button" type="button" value="UPDATE"/>
+          </div>
+        </form>
+        <form class="bottom-form">
+          <p class="current-range">
+            The Current Range is 
+            <span class="min-range-text underline-range">1</span> 
+            to 
+            <span class="max-range-text underline-range">100</span>
+          </p>
+          <label class="input user-guess" for="user-guess-box">Guess</label>
+          <input class="lg-input-box" type="number" id="user-guess-box" name="userGuess"/>
+          <input class="button submit-button" type="button" value="SUBMIT GUESS">
+          <div class="clear-and-reset-container">
+            <input class="button clear-button" type="button" value="CLEAR">
+            <input class="button reset-button" type="submit" value="RESET">
+          </div>
+        </form>
+      </div>
     </article>
     <article class="right-panel">
-      <h2 class="guessed-title">You Guessed:</h2>
-      <h3 class="guess-number">??</h3>
-      <h4 class="guess-result"></h4>
+      <div class="guess-container">
+        <h2 class="guessed-title">You Guessed:</h2>
+        <h3 class="guess-number">?</h3>
+        <h4 class="guess-result">placeholder</h4>
+      </div>
     </article>
-  </body>
+  </div>
+  <script type="text/javascript" src="scripts.js"></script>
+</body>
 </html>
