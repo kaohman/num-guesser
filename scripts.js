@@ -5,6 +5,9 @@ var minRangeInputInitial = parseInt(document.querySelector('.min-range-text').in
 var maxRangeInputInitial = parseInt(document.querySelector('.max-range-text').innerText);
 var currentRangeArray = [minRangeInputInitial, maxRangeInputInitial];
 
+// Get error message elements as an array
+var errorMessages = document.querySelectorAll('.error-message');
+
 var randomNumber = assignRandomNumber(minRangeInputInitial, maxRangeInputInitial);
 console.log('The initial random number is: ' + randomNumber);
 
@@ -19,6 +22,7 @@ var updateButton = document.querySelector('.update-button');
 updateButton.addEventListener('click', getNewMinMax);
 
 function getNewMinMax() {
+  errorMessages[0].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a min range';
   var minRangeInput = document.querySelector('.min-range-input').value;
   var maxRangeInput = document.querySelector('.max-range-input').value;
 
@@ -27,16 +31,18 @@ function getNewMinMax() {
 
   if ((minRangeInput === '') || (maxRangeInput === '')) {
     if (minRangeInput === '') {
-      alert('Enter a Min Range.');
+      errorMessages[0].classList.add('displayError');
     };
 
     if (maxRangeInput === '') {
-      alert('Enter a Max Range.');
+      errorMessages[1].classList.add('displayError');
     };
   } else if (minRangeInputNew > maxRangeInputNew || maxRangeInputNew < minRangeInputNew) {
-    alert('The Min Range is greater than the Max Range, try another range.');
+    changeRangeErrorText();
   } else {
     randomNumber = assignRandomNumber(minRangeInputNew, maxRangeInputNew);
+    errorMessages[0].classList.remove('displayError');
+    errorMessages[1].classList.remove('displayError');
     console.log('The updated random number is: ' + randomNumber);
     
     document.querySelector('.min-range-text').innerText = minRangeInputNew;
@@ -57,18 +63,19 @@ var displayResult = document.querySelector('.guess-result');
 submitButton.addEventListener('click', getUserGuess);
 
 function getUserGuess() {
+  errorMessages[2].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Guess is not a number, enter a guess';
   var usersGuess = guessInputBox.value;
   console.log('The users guess is: ' + usersGuess);
   clearGuessInput();
 
+
   if (usersGuess === '') {
-    alert('Enter a guess.');
-  } else if (isNaN(parseInt(usersGuess))) {
-    alert('Guess is not a number, try another guess.');
+    errorMessages[2].classList.add('displayError');
   } else if (parseInt(usersGuess) < currentRangeArray[0] || parseInt(usersGuess) > currentRangeArray[1]) {
-    alert('Your guess is outside the current range, try another guess.');
+    changeGuessErrorText();
   } else {
     displayRecentGuess.innerText = usersGuess;
+    errorMessages[2].classList.remove('displayError');
 
     if (usersGuess > randomNumber) {
       displayResult.innerText = 'Sorry, that is too High';
@@ -101,4 +108,30 @@ function enableClearButton () {
 };
 
 // Interactive reset button to reset game - done in HTML
+//setting reset button to disable state
+var resetButton = document.querySelector('.reset-button');
+resetButton.disabled = true;
+
+//when the user inputs something in guess, min or max input boxes this enables the reset button
+var minInputBox = document.getElementById('min-input-box');
+var maxInputBox = document.getElementById('max-input-box');
+guessInputBox.addEventListener('input', enableResetButton);
+minInputBox.addEventListener('input', enableResetButton);
+maxInputBox.addEventListener('input', enableResetButton)
+
+function enableResetButton () {
+ resetButton.disabled = false;
+};
+
+// Functions to change error messages
+function changeRangeErrorText() {
+  errorMessages[0].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Min is greater than max, enter new range';
+  errorMessages[1].classList.remove('displayError');
+  errorMessages[0].classList.add('displayError');
+};
+
+function changeGuessErrorText() {
+  errorMessages[2].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Guess is outside current range';
+  errorMessages[2].classList.add('displayError');
+};
 

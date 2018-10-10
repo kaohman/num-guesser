@@ -50,6 +50,19 @@ label {
   color: #404041;
 }
 
+.error-message {
+  color: #DD1972;
+  opacity: 0;
+}
+
+.error-icon {
+  width: 15px;
+}
+
+.displayError {
+  opacity: 1;
+}
+
 /*default and for active state - can't get active to work right now*/
 .button {
   color: white;
@@ -71,11 +84,6 @@ label {
 .input-box,
 .lg-input-box {
   border: solid 1px #404041;
-}
-
-/*for disabled state*/
-.disable-clear {
-  background-color: orange;
 }
 
 /*flex styling*/
