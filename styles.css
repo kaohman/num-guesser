@@ -89,6 +89,13 @@ label {
   justify-content: space-around;
 }
 
+/*.range-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}*/
+
 .game-container {
   display: flex;
 } 
@@ -106,9 +113,6 @@ label {
 .bottom-form{
   display: flex;
   flex-direction: column;
-}
-
-.paragraph-container {
 }
 
 .right-panel {
