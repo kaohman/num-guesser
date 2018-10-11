@@ -52,15 +52,10 @@ label {
 
 .error-message {
   color: #DD1972;
-  opacity: 0;
 }
 
 .error-icon {
   width: 15px;
-}
-
-.displayError {
-  opacity: 1;
 }
 
 /*default and for active state - can't get active to work right now*/
