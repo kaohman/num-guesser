@@ -4,7 +4,14 @@
 Mod 1 - Number Guesser Doubles
 
 ## Summary
-This goal of this project is to build a game where a user can guess a number between 1 and 100 when they first arrive to the page. The user can then also add a custom number range to change the game contraints, reset the game back to a range of 1 to 100, and continue guessing until they guess matches the random number. 
+### Week 1
+This goal of the project in Week 1 was to build a game where a user can guess a number between 1 and 100 when they first arrive to the page. The user can then also add a custom number range to change the game contraints, reset the game back to a rangthe user successfully wins, their range is updated to increase the max by 10 and decrease the min by 10. This increases the challenge for the going into the next round of the game.
+
+### Week 2
+The goal of the project in Week 2 was to pivot and adjust the game we created from a 1-player game to a 2-player game. Additional functionality for the 2-player games includes:
+* Displaying the name of each player
+* Tracking how many guesses it takes for each player to get to the correct number
+* Displaying final results of each match on a card
 
 ## Built With
 * HTML
@@ -16,3 +23,10 @@ This goal of this project is to build a game where a user can guess a number bet
 * Tiffany Bachmann
 
 ## Final Site Comp
+
+### Week 1 Version
+
+![Week 1 Comp](week1-comp.png)
+
+### Week 2 Version
+
