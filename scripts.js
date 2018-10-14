@@ -80,36 +80,45 @@ function checkForGuessError(player, i) {
   // checks name first until name is correct
   if (player.name === '') {
     guessErrorMessages[i].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a name';
+    guessErrorMessages[i].classList.add('unhidden');
     return true;
   };
 
   if (player.guess === '') {
     guessErrorMessages[i].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a guess';
+    guessErrorMessages[i].classList.add('unhidden');
     return true;
   } else if (player.guess < parseInt(minRangeInput) || parseInt(player.guess) > parseInt(maxRangeInput)) {
     guessErrorMessages[i].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Guess is outside current range';
+    guessErrorMessages[i].classList.add('unhidden');
     return true;
   };
 
   guessErrorMessages[i].innerHTML = '';
+  guessErrorMessages[i].classList.remove('unhidden');
   return false;
 };
 
 function checkForRangeError(min, max) {
   if ((min === '') && (max === '')) {
     rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a min and max range';
+    rangeErrorMessage.classList.add('unhidden');
     return true;
   } else if (min === '') {
     rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a min range';
+    rangeErrorMessage.classList.add('unhidden');
     return true;
   } else if (max === '') {
     rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a max range';
+    rangeErrorMessage.classList.add('unhidden');
     return true;
   } else if (parseInt(min) > parseInt(max)) {
     rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Min is greater than max, enter new range';
+    rangeErrorMessage.classList.add('unhidden');
     return true;
   } else {
     rangeErrorMessage.innerHTML = '';
+    rangeErrorMessage.classList.remove('unhidden');
     return false;
   };
 };
@@ -185,6 +194,16 @@ function resetForms() {
   };
 };
 
+function removeErrorMessages() {
+  guessErrorMessages[0].innerHTML = 'ERROR PLACEHOLDER';
+  guessErrorMessages[1].innerHTML = 'ERROR PLACEHOLDER';
+  rangeErrorMessage.innerHTML = 'ERROR PLACEHOLDER';
+
+  guessErrorMessages[0].classList.remove('unhidden');
+  guessErrorMessages[1].classList.remove('unhidden');
+  rangeErrorMessage.classList.remove('unhidden');
+}
+
 function setInitialConditions() {
   minRangeInput = '1';
   maxRangeInput = '100';
@@ -198,6 +217,8 @@ function setInitialConditions() {
 
   resetButton.disabled = true;
   clearButton.disabled = true;
+
+  removeErrorMessages();
 };
 
 function setHigherRange(min, max) {
