@@ -3,26 +3,29 @@
 <head>
   <title>Number Guesser</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" rel="stylesheet">
 </head>
 <body>
   <header>
     <h1 class="title">NUMBER<span class="light-title">GUESSER</span></h1>
-    <h3 class="subtitle fancy"><span>ULTIMATE CHALLENGER EDITION</span></h3>
+    <h3 class="subtitle fancy"><span class="light-title">ULTIMATE CHALLENGER EDITION</span></h3>
   </header>
   <div class="game-container">
     <article class="left-panel">
         <form class="range-form">
           <h4 class="form-titles">Set Range</h4>
-          <section class="min-column">
-            <label for="min-input-box">Min Range</label>
-            <input class="input-box min-range-input" type="number" id="min-input-box" name="minRange"/>
-            <span class="range-error-message"> </span>
-          </section>
-          <section class="max-column">
-            <label for="max-input-box">Max Range</label>
-            <input class="input-box max-range-input" type="number" id="max-input-box" name="maxRange"/>
-          </section>
-          <input class="button update-button" type="button" value="UPDATE"/>
+          <div class="inner-range-form">
+            <section class="min-column">
+              <label for="min-input-box">Min Range</label>
+              <input class="input-box min-range-input" type="number" id="min-input-box" name="minRange"/>
+            </section>
+            <section class="max-column">
+              <label for="max-input-box">Max Range</label>
+              <input class="input-box max-range-input" type="number" id="max-input-box" name="maxRange"/>
+            </section>
+            <input class="button update-button" type="button" value="UPDATE"/>
+          </div>  
+          <span class="range-error-message error">ERROR PLACEHOLDER</span>
         </form>
         <form class="player-form">
           <p class="current-range">
@@ -34,56 +37,88 @@
     
           <h4 class="form-titles">Challenger 1</h4>
           <section class="player-container">
-            <label for="user-name-1">Name</label>
-            <input class="player-1-name name-clear" type="text" id="user-name-1" name="userName"/>
-            <label for="guess-box-1">Guess</label>
-            <input class="input-box guess-clear player-1-guess" type="number" id="guess-box-1" name="userGuess1"/>
+            <div class ="name-column">
+              <label for="user-name-1">Name</label>
+              <input class="input-box player-1-name name-clear" type="text" id="user-name-1" name="userName" maxlength="20" minlength="1"/>
+            </div>
+            <div class="guess-column">
+              <label for="guess-box-1">Guess</label>
+              <input class="input-box guess-clear player-1-guess" type="number" id="guess-box-1" name="userGuess1" />
+            </div>
           </section>
-          <span class="guess-error-message"> </span>
+          <span class="guess-error-message error">ERROR PLACEHOLDER</span>
 
           <h4 class="form-titles">Challenger 2</h4>
           <section class="player-container">
-            <label for="user-name-2">Name</label>
-            <input class="player-2-name name-clear" type="text" id="user-name-2" name="userName"/>
-            <label for="guess-box-2">Guess</label>
-            <input class="input-box guess-clear player-2-guess" type="number" id="guess-box-2" name="userGuess2"/>
+            <div class ="name-column">
+              <label for="user-name-2">Name</label>
+              <input class="input-box player-2-name name-clear" type="text" id="user-name-2" name="userName" maxlength="20" minlength="1" />
+            </div>
+            <div class ="guess-column">
+              <label for="guess-box-2">Guess</label>
+              <input class="input-box guess-clear player-2-guess" type="number" id="guess-box-2" name="userGuess2"/>
+            </div>
           </section>
-          <span class="guess-error-message"> </span>
+          <span class="guess-error-message error">ERROR PLACEHOLDER</span>
 
           <section class="guess-buttons">
             <input class="button submit-button" type="button" value="SUBMIT GUESS">
-            <input class="button clear-button" type="button" value="CLEAR" disabled>
-            <input class="button reset-button" type="button" value="RESET" disabled>
+            <input class="button reset-button" type="button" value="RESET GAME" disabled>
+            <input class="button clear-button" type="button" value="CLEAR GAME" disabled>
           </section>
         </form>
         <section class="score-container">
-          <h4 class="form-titles">Latest Score</h4>
-          <section class="score">
-            <h2 class="player-1-text">Challenger 1 Name</h2>
-            <h5 class="guessed-subtitle">current guess</h5>
-            <h3 class="player-1-guess-result">?</h3>
-            <h4 class="player-result">placeholder</h4>
-          </section>
-          <section class="score">
-            <h2 class="player-2-text">Challenger 2 Name</h2>
-            <h5 class="guessed-subtitle">current guess</h5>
-            <h3 class="player-2-guess-result">?</h3>
-            <h4 class="player-result">placeholder</h4>
-          </section>
+          <h4 class="form-titles latest-title">Latest Score</h4>
+          <div class="score-flex">
+            <section class="score">
+              <p class="player-1-text">Challenger 1 Name</p>
+              <p class="guessed-subtitle">current guess</p>
+              <h3 class="player-1-guess-result">?</h3>
+              <h4 class="player-result">placeholder</h4>
+            </section>
+            <section class="score score-border">
+              <p class="player-2-text">Challenger 2 Name</p>
+              <p class="guessed-subtitle">current guess</p>
+              <h3 class="player-2-guess-result">?</h3>
+              <h4 class="player-result">placeholder</h4>
+            </section>
+          </div>
         </section>
     </article>
     <article class="right-panel">
-      <section class="result-card">
-        <h3 class="card-name-1">CHALLENGER 1 NAME</h3>
-        <h4 class="vs">VS</h4>
-        <h3 class="card-name-2">CHALLENDER 2 NAME</h3>
+      <section class="result-card card-hidden card-1">
+        <p class="player-names"><span class="card-player-1-text">Challenger 1 Name</span> VS <span class="card-player-1-text">Challenger 2 name</span></p>
         <div class="winner">
           <h1 class="winner-name">CHALLENGER NAME</h1>
           <h1 class="winner-light">WINNER</h1>
         </div>
         <div class="stats">
           <p class="total-num-guess"><span class="bold">??</span> GUESSES</p>
-          <!-- <p class="guess-num"><span class="bold">??</span>GUESSES</p> -->
+          <p class="guess-num"><span class="bold">??</span> MINUTES</p>
+          <img class="x-icon" src="delete-icon.png" alt="delete icon">
+        </div>
+      </section>
+      <section class="result-card card-hidden card-2">
+        <p class="player-names"><span class="card-player-1-text">Challenger 1 Name</span> VS <span class="card-player-1-text">Challenger 2 name</span></p>
+        <div class="winner">
+          <h1 class="winner-name">CHALLENGER NAME</h1>
+          <h1 class="winner-light">WINNER</h1>
+        </div>
+        <div class="stats">
+          <p class="total-num-guess"><span class="bold">??</span> GUESSES</p>
+          <p class="guess-num"><span class="bold">??</span> MINUTES</p>
+          <img class="x-icon" src="delete-icon.png" alt="delete icon">
+        </div>
+      </section>
+      <section class="result-card card-hidden card-3">
+        <p class="player-names"><span class="card-player-1-text">Challenger 1 Name</span> VS <span class="card-player-1-text">Challenger 2 name</span></p>
+        <div class="winner">
+          <h1 class="winner-name">CHALLENGER NAME</h1>
+          <h1 class="winner-light">WINNER</h1>
+        </div>
+        <div class="stats">
+          <p class="total-num-guess"><span class="bold">??</span> GUESSES</p>
+          <p class="guess-num"><span class="bold">??</span> MINUTES</p>
           <img class="x-icon" src="delete-icon.png" alt="delete icon">
         </div>
       </section>
