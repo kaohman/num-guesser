@@ -3,22 +3,72 @@
 *:after,
 *:before {
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 700;
+  font-family: 'Open Sans', sans-serif;
+  
 }
 
 /*body styles*/
 body {
-  background-color: lightgrey;
+  margin: 0;
 }
 
+header {
+  background-color: #404041;
+  padding-bottom: 10px;
+  padding-top: 15px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.input-box {
+  font-size: 14px;
+}
 .title {
-  color: #DD1972;
-  font-size: 300%;
+  color: #F74D9B;
+  font-size: 50px;
+  font-weight: 700;
+  text-align: center;
 }
 
 .light-title {
   font-weight: 300;
+}
+
+.subtitle {
+  color: white;
+  font-weight: 300;
+  margin: 5px 0 15px 0;
+}
+
+.fancy {
+  line-height: 0.5;
+  text-align: center;
+}
+
+.fancy span {
+  display: inline-block;
+  position: relative;
+}
+
+.fancy span:before, .fancy span:after {
+  border-bottom: 1px solid white;
+  content: "";
+  height: 5px;
+  position: absolute;
+  top: 0;
+  width: 60px; 
+}
+
+.fancy span:before {
+  margin-right: 15px;
+  right: 100%;
+}
+
+.fancy span:after {
+  left: 100%;
+  margin-left: 15px;
 }
 
 .guess-number {
@@ -37,6 +87,10 @@ body {
   text-align: center;
 }
 
+.form-titles {
+  margin: 0;
+}
+
 .current-range {
   color: #404041;
   font-weight: 300;
@@ -44,30 +98,35 @@ body {
 
 .underline-range {
   text-decoration: underline;
+  font-weight: 700;
 }
 
 label {
   color: #404041;
+  margin-bottom: 3px;
 }
 
-.error-message {
-  color: #DD1972;
+.range-error-message, .guess-error-message {
+  color: #F74D9B;
+  font-size: 13px;
+  margin-bottom: 10px;
+  visibility: hidden;
 }
 
-.error-icon {
-  width: 15px;
+.unhidden {
+  visibility: visible; 
 }
 
-/*default and for active state - can't get active to work right now*/
 .button {
   color: white;
   background-color: #6E6E6E;
   border-radius: 24px;
-  padding: 10px;
-  width: 200px;
+  padding: 5px;
+  width: 150px;
+  font-weight: 700;
+  font-size: 14px
 }
 
-/*for hover - have it stay pink after click?*/
 .button:hover {
   background-color: #DD1972;
 }
@@ -77,7 +136,8 @@ label {
 }
 
 .input-box {
-  border: solid 1px #404041;
+  border: 2px solid lightgray;
+  height: 30px;
 }
 
 /*flex styling*/
@@ -89,41 +149,200 @@ label {
   flex: 1 100%;
   height: 100vh;
   justify-content: space-around;
-}
+  padding: 15px;
+  border-right: 2px solid gray;
 
-/*.range-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-}*/
+}
 
 .game-container {
   display: flex;
 } 
+
 .range-form {
+  background-color: white;
+  border: 2px solid lightgray;
+  padding: 10px;
+  width: 490px;
+}
+
+.inner-range-form, .player-container {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+}
+.min-column, .max-column, .update-column, .name-column, .guess-column {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
 }
 
 .min-column, .max-column, .update-column {
-  display: flex;
-  flex-direction: column;
+  width: 38%;
+}
+
+.update-button {
+  width: 100px;
+  margin-top: 22px;
+  text-align: center;
 }
 
 .player-form{
   display: flex;
   flex-direction: column;
+  background-color: white;
+  border: 2px solid lightgray;
+  padding: 10px;
+  margin-top: 15px;
+  width: 490px;
+}
+
+.current-range {
+  margin-top: 0;
+}
+
+.name-column {
+  flex: 2;
+  margin: 0 10px 0 0;
+}
+
+.guess-buttons {
+  display: flex;
+}
+
+.reset-button {
+  margin-left: 5px;
+  margin-right: 8px;
+}
+
+.score-container {
+  margin-top: 15px;
+  width: 490px;
+  padding: 10px;
+  border: 2px solid lightgray;
+  background-color: white;
+}
+
+.score-flex {
+  display: flex;
 }
 
 .right-panel {
   align-items: center;
-  background-color: #404041;
+  background-color: #D0D2D3;
   display: flex;
   flex: 1 100%;
   height: 100vh;
   justify-content: center;
+  flex-direction: column;
 }
 
+.score {
+  text-align: center;
+  flex: 1;
+}
 
+.score-border {
+  border-left: 2px solid lightgray;
+}
+.latest-title {
+  text-align: left;
+}
+
+.player-1-text, .player-2-text {
+  font-weight: 700;
+  color: #6E6E6E;
+  margin-bottom: 0;
+}
+
+.player-result {
+  color: #6E6E6E;
+  font-weight: 300;
+  margin-top: 0;
+}
+
+.guessed-subtitle {
+  margin: 0;
+}
+
+.player-1-guess-result, .player-2-guess-result {
+  color: #F74D9B;
+  font-size: 50px;
+  margin: 0;
+}
+
+.x-icon {
+  width: 18px;
+  /*padding-top: 10px;*/
+}
+
+.result-card {
+  background-color: white;
+  color: #6E6E6E;
+  padding: 10px;
+  border: 2px solid gray;
+  margin: 0 0 10px 0;
+}
+
+.winner {
+  border-bottom: 2px solid lightgray;
+  border-top: 2px solid lightgray;
+  text-align: center;
+  padding: 10px 0 10px 0;
+  width: 450px;
+}
+
+.player-names {
+  font-weight: 300;
+  font-size: 12px;
+  word-spacing: 10px;
+  margin: 0 auto 5px auto;
+  text-align: center;
+}
+
+.card-player-1-text, .card-player-2-text {
+  font-weight: 700;
+  color: #6E6E6E;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  word-spacing: 0;
+}
+
+.winner-light {
+  font-weight: 300;
+  font-size: 30px;
+}
+
+.winner-name {
+  font-size: 30px;
+}
+
+.stats {
+  display: flex;
+  margin-top: 8px;
+}
+
+.total-num-guess{
+  margin: 0 95px 0 0;
+
+}
+
+.guess-num {
+  margin: 0 auto 0 0;
+}
+
+.x-icon {
+  height: 20px;
+  width: 20px;
+  margin: 0 5px 0 0;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.card-hidden {
+  display: none;
+}
+
+.card-display {
+  display: static;
+}
