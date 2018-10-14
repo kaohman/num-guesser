@@ -76,8 +76,7 @@ label {
   background-color: #D0D2D3;
 }
 
-.input-box,
-.lg-input-box {
+.input-box {
   border: solid 1px #404041;
 }
 
@@ -102,7 +101,7 @@ label {
 .game-container {
   display: flex;
 } 
-.top-form {
+.range-form {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -113,7 +112,7 @@ label {
   flex-direction: column;
 }
 
-.bottom-form{
+.player-form{
   display: flex;
   flex-direction: column;
 }

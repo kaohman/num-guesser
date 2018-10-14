@@ -1,19 +1,44 @@
 // Javascript for Number Guesser
 
 // VARIABLES
-var clearButton = document.querySelector('.clear-button');
-var displayRecentGuess = document.querySelector('.guess-number');
-var displayResult = document.querySelector('.guess-result');
-var errorMessages = document.querySelectorAll('.error-message');
-var guessInputBox = document.querySelector('.lg-input-box');
+class Player {
+  constructor(name, guess) {
+    this.name = name;
+    this.guess = guess;
+  }
+}
+
+var player1 = new Player('Challenger 1', '');
+var player2 = new Player('Challenger 2', '');
+
+var displayPlayer1Guess = document.querySelector('.player-1-guess-result');
+var displayPlayer2Guess = document.querySelector('.player-2-guess-result');
+
+var displayPlayer1Name = document.querySelector('.player-1-text');
+var displayPlayer2Name = document.querySelector('.player-2-text');
+    
+
+var displayResults = document.querySelectorAll('.player-result');
+
+var guessErrorMessages = document.querySelectorAll('.guess-error-message');
+var rangeErrorMessage = document.querySelector('.range-error-message');
+
+var nameInputBoxes = document.querySelectorAll('.name-clear');
+var guessInputBoxes = document.querySelectorAll('.guess-clear');
+
 var minInputBox = document.getElementById('min-input-box');
 var maxInputBox = document.getElementById('max-input-box');
+
 var minRangeInput;
 var maxRangeInput;
+
 var randomNumber;
+
+var clearButton = document.querySelector('.clear-button');
 var resetButton = document.querySelector('.reset-button');
 var submitButton = document.querySelector('.submit-button');
 var updateButton = document.querySelector('.update-button');
+
 var winCheck = false;
 
 // ACTIONS
@@ -21,15 +46,20 @@ setInitialConditions(parseInt(minRangeInput), parseInt(maxRangeInput));
 
 updateButton.addEventListener('click', getNewMinMax);
 
-guessInputBox.setAttribute("onkeydown", "return (event.keyCode!=13);")
+guessInputBoxes[1].setAttribute("onkeydown", "return (event.keyCode!=13);")
 submitButton.addEventListener('click', getUserGuess);
 
-guessInputBox.addEventListener('input', enableResetButton);
+guessInputBoxes[0].addEventListener('input', enableResetButton);
+guessInputBoxes[1].addEventListener('input', enableResetButton);
 minInputBox.addEventListener('input', enableResetButton);
 maxInputBox.addEventListener('input', enableResetButton);
 resetButton.addEventListener('click', resetForms);
 
-guessInputBox.addEventListener('input', enableClearButton);
+// Enable clear for all name/guess boxes
+nameInputBoxes[0].addEventListener('input', enableClearButton);
+nameInputBoxes[1].addEventListener('input', enableClearButton);
+guessInputBoxes[0].addEventListener('input', enableClearButton);
+guessInputBoxes[1].addEventListener('input', enableClearButton);
 clearButton.addEventListener('click', clearGuessInput);
 
 // FUNCTIONS
@@ -39,43 +69,64 @@ function assignRandomNumber(min, max) {
 };
 
 function clearGuessInput() {
-  guessInputBox.value = '';
+  nameInputBoxes[0].value = '';
+  nameInputBoxes[1].value = '';
+  guessInputBoxes[0].value = '';
+  guessInputBoxes[1].value = '';
   clearButton.disabled = true;
 };
 
-function checkForGuessError(guess) {
-  if (guess === '') {
-    errorMessages[1].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a guess';
-  } else if (parseInt(guess) < parseInt(minRangeInput) || parseInt(guess) > parseInt(maxRangeInput)) {
-    errorMessages[1].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Guess is outside current range';
+function checkForGuessError(player, i) {
+  // checks name first until name is correct
+  if (player.name === '') {
+    guessErrorMessages[i].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a name';
     return true;
-  } else {
-    errorMessages[1].innerHTML = '';
-    return false;
   };
+
+  if (player.guess === '') {
+    guessErrorMessages[i].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a guess';
+    return true;
+  } else if (player.guess < parseInt(minRangeInput) || parseInt(player.guess) > parseInt(maxRangeInput)) {
+    guessErrorMessages[i].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Guess is outside current range';
+    return true;
+  };
+
+  guessErrorMessages[i].innerHTML = '';
+  return false;
 };
 
 function checkForRangeError(min, max) {
   if ((min === '') && (max === '')) {
-    errorMessages[0].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a min and max range';
+    rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a min and max range';
     return true;
   } else if (min === '') {
-    errorMessages[0].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a min range';
+    rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a min range';
     return true;
   } else if (max === '') {
-    errorMessages[0].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a max range';
+    rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a max range';
     return true;
   } else if (parseInt(min) > parseInt(max)) {
-    errorMessages[0].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Min is greater than max, enter new range';
+    rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Min is greater than max, enter new range';
     return true;
   } else {
-    errorMessages[0].innerHTML = '';
+    rangeErrorMessage.innerHTML = '';
     return false;
   };
 };
 
+function compareGuess(guess, i) {
+  if (parseInt(guess) > randomNumber) {
+    displayResults[i].innerText = 'Sorry, that is too High';
+  } else if (parseInt(guess) < randomNumber) {
+    displayResults[i].innerText = 'Sorry, that is too low';
+  } else {
+    displayResults[i].innerText = 'BOOM!';
+    winCheck = true;
+  };
+};
+
 function enableClearButton () {
- clearButton.disabled = false;
+  clearButton.disabled = false;
 };
 
 function enableResetButton() {
@@ -83,7 +134,6 @@ function enableResetButton() {
 };
 
 function getNewMinMax() {
-  errorMessages[0].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a min range';
   minRangeInput = document.querySelector('.min-range-input').value;
   maxRangeInput = document.querySelector('.max-range-input').value;
 
@@ -99,29 +149,34 @@ function getNewMinMax() {
 };
 
 function getUserGuess() {
-  var usersGuess = guessInputBox.value;
-  console.log('The users guess is: ' + usersGuess);
+  player1.name = document.querySelector('.player-1-name').value;
+  player1.guess = document.getElementById('guess-box-1').value;
+  player2.name = document.querySelector('.player-2-name').value;
+  player2.guess = document.getElementById('guess-box-2').value;
+
+  console.log("user 1 name: " + player1.name + " user 2 name: " + player2.name);
+  console.log('User 1 guess is: ' + player1.guess + ', User 2 guess is: ' + player2.guess);
 
   clearGuessInput();
 
-  var errorCheck = checkForGuessError(usersGuess);
+  var errorCheck1 = checkForGuessError(player1, 0);
+  var errorCheck2 = checkForGuessError(player2, 1);
 
-  if (errorCheck === false) {
-    displayRecentGuess.innerText = usersGuess;
-    if (parseInt(usersGuess) > randomNumber) {
-      displayResult.innerText = 'Sorry, that is too High';
-    } else if (parseInt(usersGuess) < randomNumber) {
-      displayResult.innerText = 'Sorry, that is too low';
-    } else {
-      displayResult.innerText = 'BOOM!';
-      winCheck = true;
-    };
+  if ((errorCheck1 === false) && (errorCheck2 === false)) {
+    displayPlayer1Name.innerText = player1.name;
+    displayPlayer2Name.innerText = player2.name;
+
+    displayPlayer1Guess.innerText = player1.guess;
+    displayPlayer2Guess.innerText = player2.guess;
+    
+    compareGuess(player1.guess, 0);
+    compareGuess(player2.guess, 1);
   };
 };
 
 function resetForms() {
-  document.querySelector('.top-form').reset();
-  document.querySelector('.bottom-form').reset();
+  document.querySelector('.range-form').reset();
+  document.querySelector('.player-form').reset();
 
   if (winCheck === true){
     setHigherRange(parseInt(minRangeInput), parseInt(maxRangeInput));
@@ -140,6 +195,9 @@ function setInitialConditions() {
   console.log('The initial random number is: ' + randomNumber);
   document.querySelector('.min-range-text').innerText = minRangeInput;
   document.querySelector('.max-range-text').innerText = maxRangeInput;
+
+  resetButton.disabled = true;
+  clearButton.disabled = true;
 };
 
 function setHigherRange(min, max) {
@@ -152,4 +210,10 @@ function setHigherRange(min, max) {
   document.querySelector('.min-range-text').innerText = newMin;
   document.querySelector('.max-range-text').innerText = newMax;
 };
+
+
+
+
+
+
 
