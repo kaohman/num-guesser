@@ -143,7 +143,7 @@ function compareGuess(player, i) {
 };
 
 function createCard() {
-  cardHTML = `<section class="result-card" id="card-${cardNum}"><p class="player-names"><span class="card-player-text">${player1.name}</span> VS <span class="card-player-text">${player2.name}</span></p><div class="winner"><h1 class="winner-name">${winnerName}</h1><h1 class="winner-light">WINNER</h1></div><div class="stats"><p class="total-num-guess"><span class="bold">${numOfGuesses}</span> GUESSES</p><p class="guess-num"><span class="bold">??</span> MINUTES</p><img class="x-icon" id="card-${cardNum}" src="delete.svg" alt="delete icon"></div></section>`;
+  cardHTML = `<section class="result-card" id="card-${cardNum}"><p class="player-names"><span class="card-player-text">${player1.name}</span><span class="vs"> VS </span><span class="card-player-text">${player2.name}</span></p><div class="winner"><h1 class="winner-name">${winnerName}</h1><h1 class="winner-light">WINNER</h1></div><div class="stats"><p class="total-num-guess"><span class="bold">${numOfGuesses}</span> GUESSES</p><p class="guess-num"><span class="bold">??</span> MINUTES</p><img class="x-icon" id="card-${cardNum}" src="delete.svg" alt="delete icon"></div></section>`;
   cardNum++;
   newCard = document.createElement('div');
   newCard.innerHTML = cardHTML;
@@ -233,7 +233,7 @@ function resetLatestScorecard() {
   displayPlayer1Name = document.querySelector('.player-1-text');
   displayPlayer2Name = document.querySelector('.player-2-text');
   displayPlayer1Name.innerText = 'Challenger 1 Name';
-  displayPlayerName.innerText = 'Challenger 2 Name';
+  displayPlayer2Name.innerText = 'Challenger 2 Name';
 
   displayResults = document.querySelectorAll('.player-result');
   displayResults[0].innerText = '';
