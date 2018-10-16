@@ -4,6 +4,7 @@
   <title>Number Guesser</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <header>
@@ -14,7 +15,7 @@
     <article class="left-panel">
         <form class="range-form">
           <h4 class="form-titles">Set Range</h4>
-          <div class="inner-range-form">
+          <div class="range-container">
             <section class="min-column">
               <label for="min-input-box">Min Range</label>
               <input class="input-box min-range-input" type="number" id="min-input-box" name="minRange"/>
@@ -86,8 +87,8 @@
         </section>
     </article>
     <article class="right-panel">
-      <section class="result-card card-hidden card-1">
-        <p class="player-names"><span class="card-player-1-text">Challenger 1 Name</span> VS <span class="card-player-1-text">Challenger 2 name</span></p>
+      <section class="result-card">
+        <p class="player-names"><span class="card-player-text">Challenger 1 Name</span> VS <span class="card-player-text">Challenger 2 name</span></p>
         <div class="winner">
           <h1 class="winner-name">CHALLENGER NAME</h1>
           <h1 class="winner-light">WINNER</h1>
@@ -95,11 +96,11 @@
         <div class="stats">
           <p class="total-num-guess"><span class="bold">??</span> GUESSES</p>
           <p class="guess-num"><span class="bold">??</span> MINUTES</p>
-          <img class="x-icon" src="delete-icon.png" alt="delete icon">
+          <img class="x-icon" src="delete.svg" alt="delete icon">
         </div>
       </section>
-      <section class="result-card card-hidden card-2">
-        <p class="player-names"><span class="card-player-1-text">Challenger 1 Name</span> VS <span class="card-player-1-text">Challenger 2 name</span></p>
+      <section class="result-card">
+        <p class="player-names"><span class="card-player-text">Challenger 1 Name</span> VS <span class="card-player-text">Challenger 2 name</span></p>
         <div class="winner">
           <h1 class="winner-name">CHALLENGER NAME</h1>
           <h1 class="winner-light">WINNER</h1>
@@ -107,11 +108,11 @@
         <div class="stats">
           <p class="total-num-guess"><span class="bold">??</span> GUESSES</p>
           <p class="guess-num"><span class="bold">??</span> MINUTES</p>
-          <img class="x-icon" src="delete-icon.png" alt="delete icon">
+          <img class="x-icon" src="delete.svg" alt="delete icon">
         </div>
       </section>
-      <section class="result-card card-hidden card-3">
-        <p class="player-names"><span class="card-player-1-text">Challenger 1 Name</span> VS <span class="card-player-1-text">Challenger 2 name</span></p>
+      <section class="result-card">
+        <p class="player-names"><span class="card-player-text">Challenger 1 Name</span> VS <span class="card-player-text">Challenger 2 name</span></p>
         <div class="winner">
           <h1 class="winner-name">CHALLENGER NAME</h1>
           <h1 class="winner-light">WINNER</h1>
@@ -119,7 +120,7 @@
         <div class="stats">
           <p class="total-num-guess"><span class="bold">??</span> GUESSES</p>
           <p class="guess-num"><span class="bold">??</span> MINUTES</p>
-          <img class="x-icon" src="delete-icon.png" alt="delete icon">
+          <img class="x-icon alt-x" src="delete.svg" alt="delete icon">
         </div>
       </section>
     </article>
