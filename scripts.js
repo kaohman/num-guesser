@@ -5,30 +5,31 @@ class Player {
   constructor(name, guess) {
     this.name = name;
     this.guess = guess;
+    this.win = false;
+  }
+
+// use command to reassign win to true when player wins.
+// could also employ named function from outside object.
+  winCheck(ranNum) {
+    if (parseInt(this.guess) === ranNum) {
+      this.win = true;
+    }
   }
 }
 
 var player1 = new Player('Challenger 1', '');
 var player2 = new Player('Challenger 2', '');
-
 var displayPlayer1Guess = document.querySelector('.player-1-guess-result');
 var displayPlayer2Guess = document.querySelector('.player-2-guess-result');
-
 var displayPlayer1Name = document.querySelector('.player-1-text');
 var displayPlayer2Name = document.querySelector('.player-2-text');
-    
-
 var displayResults = document.querySelectorAll('.player-result');
-
 var guessErrorMessages = document.querySelectorAll('.guess-error-message');
 var rangeErrorMessage = document.querySelector('.range-error-message');
-
-var nameInputBoxes = document.querySelectorAll('.name-clear');
-var guessInputBoxes = document.querySelectorAll('.guess-clear');
-
+var nameInputBoxes = document.querySelectorAll('.names');
+var guessInputBoxes = document.querySelectorAll('.guesses');
 var minInputBox = document.getElementById('min-input-box');
 var maxInputBox = document.getElementById('max-input-box');
-
 var minRangeInput;
 var maxRangeInput;
 
@@ -158,10 +159,10 @@ function getNewMinMax() {
 };
 
 function getUserGuess() {
-  player1.name = document.querySelector('.player-1-name').value;
-  player1.guess = document.getElementById('guess-box-1').value;
-  player2.name = document.querySelector('.player-2-name').value;
-  player2.guess = document.getElementById('guess-box-2').value;
+  player1.name = nameInputBoxes[0].value;
+  player1.guess = guessInputBoxes[0].value;
+  player2.name = nameInputBoxes[1].value;
+  player2.guess = guessInputBoxes[1].value;
 
   console.log("user 1 name: " + player1.name + " user 2 name: " + player2.name);
   console.log('User 1 guess is: ' + player1.guess + ', User 2 guess is: ' + player2.guess);
