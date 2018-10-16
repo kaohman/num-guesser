@@ -1,19 +1,10 @@
 // Javascript for Number Guesser
 
-// VARIABLES
-class Player {
-  constructor(name, guess) {
+// VARIABLES 
+class Player {   
+  constructor(name, guess) {     
     this.name = name;
-    this.guess = guess;
-    this.win = false;
-  }
-
-// use command to reassign win to true when player wins.
-// could also employ named function from outside object.
-  winCheck(ranNum) {
-    if (parseInt(this.guess) === ranNum) {
-      this.win = true;
-    }
+    this.guess = guess;        
   }
 }
 
@@ -25,6 +16,14 @@ var displayPlayer1Name = document.querySelector('.player-1-text');
 var displayPlayer2Name = document.querySelector('.player-2-text');
 var displayResults = document.querySelectorAll('.player-result');
 var guessErrorMessages = document.querySelectorAll('.guess-error-message');
+
+var cardNum = 0;
+var numOfGuesses = 0;
+var winnerName;
+var cardHTML;
+var cardParentDiv = document.querySelector('.right-panel');
+var newCard;
+
 var rangeErrorMessage = document.querySelector('.range-error-message');
 var nameInputBoxes = document.querySelectorAll('.names');
 var guessInputBoxes = document.querySelectorAll('.guesses');
@@ -48,7 +47,7 @@ setInitialConditions(parseInt(minRangeInput), parseInt(maxRangeInput));
 updateButton.addEventListener('click', getNewMinMax);
 
 guessInputBoxes[1].setAttribute("onkeydown", "return (event.keyCode!=13);")
-submitButton.addEventListener('click', getUserGuess);
+submitButton.addEventListener('click', getUsersGuesses);
 
 guessInputBoxes[0].addEventListener('input', enableResetButton);
 guessInputBoxes[1].addEventListener('input', enableResetButton);
@@ -63,6 +62,13 @@ guessInputBoxes[0].addEventListener('input', enableClearButton);
 guessInputBoxes[1].addEventListener('input', enableClearButton);
 clearButton.addEventListener('click', clearGuessInput);
 
+cardParentDiv.addEventListener('click', function(event) {
+  if (event.target.className === 'x-icon') {
+    var deleteDiv = document.getElementById(event.target.id);
+    deleteDiv.parentNode.removeChild(deleteDiv);
+  };
+});
+
 // FUNCTIONS
 function assignRandomNumber(min, max) {
   var num = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -72,13 +78,16 @@ function assignRandomNumber(min, max) {
 function clearGuessInput() {
   nameInputBoxes[0].value = '';
   nameInputBoxes[1].value = '';
+  clearGuesses();
+};
+
+function clearGuesses() {
   guessInputBoxes[0].value = '';
   guessInputBoxes[1].value = '';
   clearButton.disabled = true;
 };
 
 function checkForGuessError(player, i) {
-  // checks name first until name is correct
   if (player.name === '') {
     guessErrorMessages[i].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a name';
     guessErrorMessages[i].classList.add('unhidden');
@@ -124,18 +133,20 @@ function checkForRangeError(min, max) {
   };
 };
 
-function compareGuess(guess, i) {
-  if (parseInt(guess) > randomNumber) {
+function compareGuess(player, i) {
+  if (parseInt(player.guess) > randomNumber) {
     displayResults[i].innerText = 'Sorry, that is too High';
-  } else if (parseInt(guess) < randomNumber) {
+  } else if (parseInt(player.guess) < randomNumber) {
     displayResults[i].innerText = 'Sorry, that is too low';
   } else {
     displayResults[i].innerText = 'BOOM!';
+    winnerName = player.name;
     winCheck = true;
+    createCard();
   };
 };
 
-function enableClearButton () {
+function enableClearButton() {
   clearButton.disabled = false;
 };
 
@@ -158,7 +169,7 @@ function getNewMinMax() {
   };
 };
 
-function getUserGuess() {
+function getUsersGuesses() {
   player1.name = nameInputBoxes[0].value;
   player1.guess = guessInputBoxes[0].value;
   player2.name = nameInputBoxes[1].value;
@@ -167,7 +178,7 @@ function getUserGuess() {
   console.log("user 1 name: " + player1.name + " user 2 name: " + player2.name);
   console.log('User 1 guess is: ' + player1.guess + ', User 2 guess is: ' + player2.guess);
 
-  clearGuessInput();
+  clearGuesses();
 
   var errorCheck1 = checkForGuessError(player1, 0);
   var errorCheck2 = checkForGuessError(player2, 1);
@@ -178,9 +189,11 @@ function getUserGuess() {
 
     displayPlayer1Guess.innerText = player1.guess;
     displayPlayer2Guess.innerText = player2.guess;
+
+    ++numOfGuesses;
     
-    compareGuess(player1.guess, 0);
-    compareGuess(player2.guess, 1);
+    compareGuess(player1, 0);
+    compareGuess(player2, 1);
   };
 };
 
@@ -188,12 +201,30 @@ function resetForms() {
   document.querySelector('.range-form').reset();
   document.querySelector('.player-form').reset();
 
+  resetLatestScorecard();
+
   if (winCheck === true){
-    setHigherRange(parseInt(minRangeInput), parseInt(maxRangeInput));
+    setHigherRange();
   } else {
     setInitialConditions();
   };
 };
+
+function resetLatestScorecard() {
+  displayPlayer1Guess = document.querySelector('.player-1-guess-result');
+  displayPlayer2Guess = document.querySelector('.player-2-guess-result');
+  displayPlayer1Guess.innerText = '??';
+  displayPlayer2Guess.innerText = '??';
+
+  displayPlayer1Name = document.querySelector('.player-1-text');
+  displayPlayer2Name = document.querySelector('.player-2-text');
+  displayPlayer1Name.innerText = 'Challenger 1 Name';
+  displayPlayerName.innerText = 'Challenger 2 Name';
+
+  displayResults = document.querySelectorAll('.player-result');
+  displayResults[0].innerText = '';
+  displayResults[1].innerText = '';
+}
 
 function removeErrorMessages() {
   guessErrorMessages[0].innerHTML = 'ERROR PLACEHOLDER';
@@ -222,17 +253,27 @@ function setInitialConditions() {
   removeErrorMessages();
 };
 
-function setHigherRange(min, max) {
+function setHigherRange() {
   winCheck = false;
-  var newMin = min - 10;
-  var newMax = max + 10;
+  minRangeInput = parseInt(minRangeInput) - 10;
+  maxRangeInput = parseInt(maxRangeInput) + 10;
 
-  randomNumber = assignRandomNumber(newMin, newMax);
+  minRangeInput.toString();
+  maxRangeInput.toString();
+
+  randomNumber = assignRandomNumber(parseInt(minRangeInput), parseInt(maxRangeInput));
   console.log('The random number is: ' + randomNumber);
-  document.querySelector('.min-range-text').innerText = newMin;
-  document.querySelector('.max-range-text').innerText = newMax;
+  document.querySelector('.min-range-text').innerText = minRangeInput;
+  document.querySelector('.max-range-text').innerText = maxRangeInput;
 };
 
+function createCard() {
+  cardHTML = `<section class="result-card" id="card-${cardNum}"><p class="player-names"><span class="card-player-text">${player1.name}</span> VS <span class="card-player-text">${player2.name}</span></p><div class="winner"><h1 class="winner-name">${winnerName}</h1><h1 class="winner-light">WINNER</h1></div><div class="stats"><p class="total-num-guess"><span class="bold">${numOfGuesses}</span> GUESSES</p><p class="guess-num"><span class="bold">??</span> MINUTES</p><img class="x-icon" id="card-${cardNum}" src="delete.svg" alt="delete icon"></div></section>`;
+  cardNum++;
+  newCard = document.createElement('div');
+  newCard.innerHTML = cardHTML;
+  cardParentDiv.appendChild(newCard);
+};
 
 
 
