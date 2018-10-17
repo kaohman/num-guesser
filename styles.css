@@ -82,6 +82,7 @@ label {
 }
 
 .button {
+  border: none;
   background-color: #6E6E6E;
   border-radius: 24px;
   color: white;
@@ -152,9 +153,9 @@ label {
   display: flex;
   flex-direction: column;
   flex: 1;
-  height: 100vh;
   justify-content: flex-start;
-  padding: 5px;
+  padding-top: 5px;
+  padding-bottom: 15px;
 }
 
 .range-form {
@@ -336,6 +337,27 @@ label {
 
 .card-display {
   display: static;
+}
+
+.animation {
+  animation: pop 2s 1;
+  background-color: white;
+}
+
+.animate-text {
+  animation: text-pop 2s 1;
+  animation-delay: 1s;
+}
+
+@keyframes pop {
+  from{transform:scale(0);}
+  to{transform:scale(1);}
+}
+
+@keyframes text-pop {
+  0% {transform:scale(1);}
+  50% {transform:scale(3);color:#F74D9B;}
+  100% {transform:scale(1);}
 }
 
 @media screen and (max-width: 1050px) {

@@ -1,6 +1,3 @@
-// Javascript for Number Guesser
-
-// CLASSES
 class Player {   
   constructor(name, guess) {     
     this.name = name;
@@ -8,7 +5,6 @@ class Player {
   }
 }
 
-// VARIABLES
 var cardNum = 0;
 var cardParentDiv = document.querySelector('.right-panel');
 var clearButton = document.querySelector('.clear-button');
@@ -40,7 +36,6 @@ var randomNumber;
 var startTime;
 var winnerName;
 
-// ACTIONS
 setInitialConditions(parseInt(minRangeInput), parseInt(maxRangeInput));
 
 updateButton.addEventListener('click', getNewMinMax);
@@ -56,14 +51,12 @@ maxInputBox.addEventListener('input', enableResetButton);
 maxInputBox.addEventListener('input', enableUpdateButton);
 resetButton.addEventListener('click', resetForms);
 
-// Enable clear for all name/guess boxes
 nameInputBoxes[0].addEventListener('input', enableClearButton);
 nameInputBoxes[1].addEventListener('input', enableClearButton);
 guessInputBoxes[0].addEventListener('input', enableClearButton);
 guessInputBoxes[1].addEventListener('input', enableClearButton);
 clearButton.addEventListener('click', clearGuessInput);
 
-// Enable Submit for all name/guess boxes
 nameInputBoxes[0].addEventListener('input', enableSubmitButton);
 nameInputBoxes[1].addEventListener('input', enableSubmitButton);
 guessInputBoxes[0].addEventListener('input', enableSubmitButton);
@@ -76,7 +69,6 @@ cardParentDiv.addEventListener('click', function(event) {
   };
 });
 
-// FUNCTIONS
 function addPinkBorder(elementHtml) {
   elementHtml.classList.add('pink-border');
 }
@@ -160,7 +152,7 @@ function clearGuessInput() {
   nameInputBoxes[0].value = '';
   nameInputBoxes[1].value = '';
   clearGuesses();
-};
+}
 
 function compareGuess(player, i) {
   if (parseInt(player.guess) > randomNumber) {
@@ -178,7 +170,7 @@ function compareGuess(player, i) {
 };
 
 function createCard() {
-  cardHTML = `<section class="result-card" id="card-${cardNum}"><p class="player-names"><span class="card-player-text">${player1.name}</span><span class="vs"> VS </span><span class="card-player-text">${player2.name}</span></p><div class="winner"><h1 class="winner-name">${winnerName}</h1><h1 class="winner-light">WINNER</h1></div><div class="stats"><p class="total-num-guess"><span class="bold">${numOfGuesses}</span> GUESSES</p><p class="guess-num"><span class="bold">${gameLength}</span> MINUTES</p><img class="x-icon" id="card-${cardNum}" src="delete.svg" alt="delete icon"></div></section>`;
+  cardHTML = `<section class="result-card animation" id="card-${cardNum}"><p class="player-names"><span class="card-player-text">${player1.name}</span><span class="vs"> VS </span><span class="card-player-text">${player2.name}</span></p><div class="winner"><h1 class="winner-name animate-text">${winnerName}</h1><h1 class="winner-light">WINNER</h1></div><div class="stats"><p class="total-num-guess"><span class="bold">${numOfGuesses}</span> GUESSES</p><p class="guess-num"><span class="bold">${gameLength}</span> MINUTES</p><img class="x-icon" id="card-${cardNum}" src="delete.svg" alt="delete icon"></div></section>`;
   cardNum++;
   newCard = document.createElement('div');
   newCard.innerHTML = cardHTML;
@@ -217,7 +209,6 @@ function getNewMinMax() {
 
   if (errorCheck === false) {
     randomNumber = assignRandomNumber(parseInt(minRangeInput), parseInt(maxRangeInput));
-    console.log('The updated random number is: ' + randomNumber);
 
     startTime = 0;
     endTime = 0;
@@ -235,9 +226,6 @@ function getUsersGuesses() {
   player1.guess = guessInputBoxes[0].value;
   player2.name = nameInputBoxes[1].value;
   player2.guess = guessInputBoxes[1].value;
-
-  console.log("user 1 name: " + player1.name + " user 2 name: " + player2.name);
-  console.log('User 1 guess is: ' + player1.guess + ', User 2 guess is: ' + player2.guess);
 
   var errorCheck1 = checkForGuessError(player1, 0);
   var errorCheck2 = checkForGuessError(player2, 1);
@@ -314,7 +302,6 @@ function setHigherRange() {
   maxRangeInput.toString();
 
   randomNumber = assignRandomNumber(parseInt(minRangeInput), parseInt(maxRangeInput));
-  console.log('The random number is: ' + randomNumber);
   document.querySelector('.min-range-text').innerText = minRangeInput;
   document.querySelector('.max-range-text').innerText = maxRangeInput;
 };
@@ -322,10 +309,8 @@ function setHigherRange() {
 function setInitialConditions() {
   minRangeInput = '1';
   maxRangeInput = '100';
-  console.log('The range is: ' + minRangeInput + " " + maxRangeInput);
   
   randomNumber = assignRandomNumber(parseInt(minRangeInput), parseInt(maxRangeInput));
-  console.log('The initial random number is: ' + randomNumber);
   document.querySelector('.min-range-text').innerText = minRangeInput;
   document.querySelector('.max-range-text').innerText = maxRangeInput;
 
