@@ -11,9 +11,11 @@ This goal of the project in Week 1 was to build a game where a user can guess a 
 The goal of the project in Week 2 was to pivot and adjust the game we created from a 1-player game to a 2-player game. Additional functionality for the 2-player games includes:
 
 * Displaying the name of each player
-* Tracking how many guesses it takes for each player to get to the correct number
+* Tracking how many guesses it takes to get to the correct number
+* Tracking how long the game lasts
 * Displaying final results of each match on a card
 * Ability to delete final results cards
+* Animations
 
 ## Built With
 * HTML
@@ -31,4 +33,8 @@ The goal of the project in Week 2 was to pivot and adjust the game we created fr
 ![Week 1 Comp](week1-comp.png)
 
 ### Week 2 Version
+
+![Week 2 Web Comp](web-view.png)
+
+![Week 2 Mobile Comp](mobile-view.png)
 
