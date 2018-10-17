@@ -115,6 +115,10 @@ label {
   height: 11px;
 }
 
+.pink-border {
+  border: 2px solid #DD1972;
+}
+
 .unhidden {
   visibility: visible; 
 }
