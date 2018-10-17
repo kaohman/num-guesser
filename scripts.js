@@ -48,7 +48,9 @@ submitButton.addEventListener('click', getUsersGuesses);
 guessInputBoxes[0].addEventListener('input', enableResetButton);
 guessInputBoxes[1].addEventListener('input', enableResetButton);
 minInputBox.addEventListener('input', enableResetButton);
+minInputBox.addEventListener('input', enableUpdateButton);
 maxInputBox.addEventListener('input', enableResetButton);
+maxInputBox.addEventListener('input', enableUpdateButton);
 resetButton.addEventListener('click', resetForms);
 
 // Enable clear for all name/guess boxes
@@ -58,6 +60,12 @@ guessInputBoxes[0].addEventListener('input', enableClearButton);
 guessInputBoxes[1].addEventListener('input', enableClearButton);
 clearButton.addEventListener('click', clearGuessInput);
 
+// Enable Submit for all name/guess boxes
+nameInputBoxes[0].addEventListener('input', enableSubmitButton);
+nameInputBoxes[1].addEventListener('input', enableSubmitButton);
+guessInputBoxes[0].addEventListener('input', enableSubmitButton);
+guessInputBoxes[1].addEventListener('input', enableSubmitButton);
+
 cardParentDiv.addEventListener('click', function(event) {
   if (event.target.className === 'x-icon') {
     var deleteDiv = document.getElementById(event.target.id);
@@ -66,6 +74,10 @@ cardParentDiv.addEventListener('click', function(event) {
 });
 
 // FUNCTIONS
+function addPinkBorder(elementHtml) {
+  elementHtml.classList.add('pink-border');
+}
+
 function assignRandomNumber(min, max) {
   var num = Math.floor(Math.random() * (max - min + 1)) + min;
   return num;
@@ -75,44 +87,62 @@ function checkForGuessError(player, i) {
   if (player.name === '') {
     guessErrorMessages[i].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a name';
     guessErrorMessages[i].classList.add('unhidden');
+    addPinkBorder(nameInputBoxes[i]);
     return true;
   };
 
   if (player.guess === '') {
     guessErrorMessages[i].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a guess';
     guessErrorMessages[i].classList.add('unhidden');
+    addPinkBorder(guessInputBoxes[i]);
     return true;
   } else if (player.guess < parseInt(minRangeInput) || parseInt(player.guess) > parseInt(maxRangeInput)) {
     guessErrorMessages[i].innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Guess is outside current range';
     guessErrorMessages[i].classList.add('unhidden');
+    addPinkBorder(guessInputBoxes[i]);
     return true;
   };
 
-  guessErrorMessages[i].innerHTML = '';
+  guessErrorMessages[i].innerHTML = 'ERROR PLACEHOLDER';
   guessErrorMessages[i].classList.remove('unhidden');
+  removePinkBorder(guessInputBoxes[i]);
+  removePinkBorder(nameInputBoxes[i]);
   return false;
 };
 
 function checkForRangeError(min, max) {
-  if ((min === '') && (max === '')) {
+  if (min === '' && max === '') {
     rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a min and max range';
     rangeErrorMessage.classList.add('unhidden');
-    return true;
+    addPinkBorder(minInputBox);
+    addPinkBorder(maxInputBox);
   } else if (min === '') {
     rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a min range';
     rangeErrorMessage.classList.add('unhidden');
+    addPinkBorder(minInputBox);
+    removePinkBorder(maxInputBox);
     return true;
   } else if (max === '') {
     rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Enter a max range';
     rangeErrorMessage.classList.add('unhidden');
+    addPinkBorder(maxInputBox);
     return true;
   } else if (parseInt(min) > parseInt(max)) {
     rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Min is greater than max, enter new range';
     rangeErrorMessage.classList.add('unhidden');
+    addPinkBorder(minInputBox);
+    return true;
+  } else if (parseInt(min) === parseInt(max)) {
+    rangeErrorMessage.innerHTML = '<img class="error-icon" src="error-icon.svg" alt="error message icon"> Min equals max, enter new range';
+    rangeErrorMessage.classList.add('unhidden');
+    addPinkBorder(minInputBox);
+    addPinkBorder(maxInputBox);
     return true;
   } else {
-    rangeErrorMessage.innerHTML = '';
+    rangeErrorMessage.innerHTML = 'ERROR PLACEHOLDER';
     rangeErrorMessage.classList.remove('unhidden');
+    removePinkBorder(minInputBox);
+    removePinkBorder(maxInputBox);
     return false;
   };
 };
@@ -139,6 +169,7 @@ function compareGuess(player, i) {
     winnerName = player.name;
     winCheck = true;
     createCard();
+    submitButton.disabled = true;
   };
 };
 
@@ -158,6 +189,14 @@ function enableResetButton() {
   resetButton.disabled = false;
 };
 
+function enableUpdateButton() {
+  updateButton.disabled = false;
+}
+
+function enableSubmitButton() {
+  submitButton.disabled = false;
+}
+
 function getNewMinMax() {
   minRangeInput = document.querySelector('.min-range-input').value;
   maxRangeInput = document.querySelector('.max-range-input').value;
@@ -171,6 +210,8 @@ function getNewMinMax() {
     document.querySelector('.min-range-text').innerText = minRangeInput;
     document.querySelector('.max-range-text').innerText = maxRangeInput;
   };
+
+  updateButton.disabled = true;
 };
 
 function getUsersGuesses() {
@@ -182,7 +223,7 @@ function getUsersGuesses() {
   console.log("user 1 name: " + player1.name + " user 2 name: " + player2.name);
   console.log('User 1 guess is: ' + player1.guess + ', User 2 guess is: ' + player2.guess);
 
-  clearGuesses();
+  
 
   var errorCheck1 = checkForGuessError(player1, 0);
   var errorCheck2 = checkForGuessError(player2, 1);
@@ -193,6 +234,8 @@ function getUsersGuesses() {
 
     displayPlayer1Guess.innerText = player1.guess;
     displayPlayer2Guess.innerText = player2.guess;
+
+    clearGuesses();
 
     ++numOfGuesses;
     
@@ -210,6 +253,10 @@ function removeErrorMessages() {
   guessErrorMessages[1].classList.remove('unhidden');
   rangeErrorMessage.classList.remove('unhidden');
 };
+
+function removePinkBorder(elementHtml) {
+  elementHtml.classList.remove('pink-border');
+}
 
 function resetForms() {
   document.querySelector('.range-form').reset();
@@ -267,6 +314,7 @@ function setInitialConditions() {
 
   resetButton.disabled = true;
   clearButton.disabled = true;
+  updateButton.disabled = true;
 
   removeErrorMessages();
 };
